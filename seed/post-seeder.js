@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const Post = mongoose.model('Post');
+const Post = require('../models/post');
 
-const loremIpsum = require('knicklabs-lorem-ipsum.js');     // для генерирования текста-"рыбы", который часто используется для заполнения текстовых пространств, https://www.npmjs.com/package/lorem-ipsum
+const loremIpsum = require('lorem-ipsum');     // для генерирования текста-"рыбы", который часто используется для заполнения текстовых пространств, https://www.npmjs.com/package/lorem-ipsum
 
-mongoose.connect('localhost:27017/hackernews');
+mongoose.connect('mongodb://localhost:27017/hackernews');
 
 async function seedBase() {
     for(let i = 0; i < 20; i++) {
@@ -33,7 +33,7 @@ async function seedBase() {
 
         await newPost.save();
     }
+    mongoose.disconnect();
 }
 
 seedBase();
-mongoose.disconnect();

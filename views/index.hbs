@@ -10,18 +10,18 @@
 
 
 <div class='post-container'>
-    {{#each posts as |post| }}
-    <article id="{{post._id}}">
-        <form method="post" action='/posts/{{post._id}}/vote' class="inline">
+    {{#each posts}}
+    <article id="{{this._id}}">
+        <form method="post" action='/posts/{{this._id}}/vote' class="inline">
             <button type="submit" name="submit_param" value="submit_value" class="fa fa-sort-desc vote-button upvote-button"></button>
         </form>
-        <h2><a href='/posts/{{post._id}}'>{{post.title}}</a></h2>
+        <h2><a href='/posts/{{this._id}}'>{{this.title}}</a></h2>
         <p>
-            <span class='points'>{{post.points}}</span>
-            <span class='username'>{{post.username}}</span>
-            <span class='timestamp'>{{post.timeSinceCreation}}</span>
-            <span class='comment-count'>{{ post.commentCount}}</span>
-            <a class="delete" href='/posts/{{post.id}}'></a>
+            <span class='points'>{{this.points}}</span>
+            <span class='username'>{{this.username}}</span>
+            <span class='timestamp'>{{this.timeSinceCreation}}</span>
+            <span class='comment-count'>{{ this.commentCount}}</span>
+            <a class="delete" href='/posts/{{this.id}}'></a>
         </p>
     </article>
     {{/each}}

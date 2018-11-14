@@ -1,7 +1,8 @@
 var express = require('express');
 const mongoose = require('mongoose');
-const Post = require('../models/post')
-const Vote = require('../models/vote')
+mongoose.connect('mongodb://localhost:27017/hackernews');
+const Post = require('../models/post');
+const Vote = require('../models/vote');
 var router = express.Router();
 
 /* GET home page. */
@@ -11,7 +12,7 @@ router.get('/', function(req, res) {
 
 router.get('/posts', async function(req, res) {
     let posts = await Post.find();
-    res.render('index', posts);
+    res.render('index', { posts });
 });
 
 router.post('/posts/:id/vote', async function(req, res) {
@@ -36,7 +37,7 @@ router.post('/posts', async function(req, res) {
 router.get('/posts/:id', async function(req,res) {
     let post = await Post.findById(req.params.id);
 
-    res.render('post', post);
+    res.render('post', { post });
 });
 
 module.exports = router;
