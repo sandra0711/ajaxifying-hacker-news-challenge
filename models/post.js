@@ -29,7 +29,7 @@ postSchema.methods.points = function() {
 };
 
 postSchema.methods.timeSinceCreation = function() {
-    return Date.now() - this.createdAt;
+    return Math.round((Date.now() - this.createdAt)/1000/60/60);
 };
 
 
