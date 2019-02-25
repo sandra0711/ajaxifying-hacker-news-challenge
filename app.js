@@ -9,9 +9,9 @@ const indexRouter = require('./routes/index');
 
 const app = express();
 mongoose.connect(
-  'mongodb://localhost:27017/hackernews', 
-  { 
-    useNewUrlParser: true 
+  'mongodb://localhost:27017/hackernews',
+  {
+    useNewUrlParser: true
   });
 
 // view engine setup

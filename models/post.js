@@ -1,13 +1,12 @@
 const mongoose = require('mongoose');
-const {voteSchema} = require('./vote');
+const { voteSchema } = require('./vote');
 
 const postSchema = mongoose.Schema({
     title: String,
     content: String,
     username: String,
     commentCount: Number,
-    // votes:[{ type: Schema.Types.ObjectId, ref: 'Vote' }],
-    votes:[voteSchema],
+    votes: [voteSchema],
     createdAt: Date,
     updatedAt: Date
 });
@@ -25,12 +24,12 @@ postSchema.pre('save', function (next) {
 });
 
 const sum = (accumulator, currentValue) => accumulator + currentValue.value;
-postSchema.methods.points = function() {
+postSchema.methods.points = function () {
     return this.votes.reduce(sum, 0);
 };
 
-postSchema.methods.timeSinceCreation = function() {
-    return Math.round((Date.now() - this.createdAt)/1000/60); //60);
+postSchema.methods.timeSinceCreation = function () {
+    return Math.round((Date.now() - this.createdAt) / 1000 / 60); //60);
 };
 
 
