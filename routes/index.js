@@ -1,9 +1,9 @@
-var express = require('express');
+const express = require('express');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/hackernews');
 const Post = require('../models/post');
 const Vote = require('../models/vote');
-var router = express.Router();
+const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -41,5 +41,3 @@ router.get('/posts/:id', async function(req,res) {
 });
 
 module.exports = router;
-
-
