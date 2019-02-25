@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 const voteSchema = mongoose.Schema({
-    value: Number,
-    post: { type: Schema.Types.ObjectId, ref: 'Post' },
+    value: { type: Number, default: 1 },
+    // post: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
 });
 
-module.exports = mongoose.model('Vote', voteSchema);
+module.exports = {
+    voteSchema,
+    Vote: mongoose.model('Vote', voteSchema)
+};

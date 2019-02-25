@@ -1,8 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/hackernews');
 const Post = require('../models/post');
-const Vote = require('../models/vote');
+const {Vote} = require('../models/vote');
 const router = express.Router();
 
 /* GET home page. */
@@ -17,8 +16,8 @@ router.get('/posts', async function(req, res) {
 
 router.post('/posts/:id/vote', async function(req, res) {
     let post = await Post.findById(req.params.id);
-    let vote = new Vote({value: 1});
-    post.votes.add(vote);
+    let vote = new Vote();
+    post.votes.push(vote);
     await post.save();
 
     res.redirect('/posts');
