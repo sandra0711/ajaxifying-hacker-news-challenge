@@ -16,12 +16,12 @@ postSchema.pre('save', function (next) {
     let now = Date.now();
 
     this.updatedAt = now;
-    // Set a value for createdAt only if it is null
-    if (!this.createdAt) {
-        this.createdAt = now
+    // Set a value for createdAt only if it is undefined
+    if (typeof this.createdAt === 'undefined') {
+        this.createdAt = now;
     }
     // Call the next function in the pre-save chain
-    next()
+    next();
 });
 
 const sum = (accumulator, currentValue) => accumulator + currentValue.value;
@@ -30,7 +30,7 @@ postSchema.methods.points = function() {
 };
 
 postSchema.methods.timeSinceCreation = function() {
-    return Math.round((Date.now() - this.createdAt)/1000/60/60);
+    return Math.round((Date.now() - this.createdAt)/1000/60); //60);
 };
 
 

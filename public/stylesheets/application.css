@@ -75,7 +75,7 @@ article p span.username:before {
 }
 
 article p span.timestamp:after {
-  content: ' hours ago';
+  content: ' minutes ago';
 }
 
 article p span.comment-count:before {
