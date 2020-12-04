@@ -28,7 +28,8 @@ router.post('/posts/:id/vote', async function (req, res) {
 });
 
 router.delete('/:id', async function (req, res, next) {
-  post.deleteOne()
+  let post = await Post.findById(req.params.id).deleteOne();
+  res.json(post);
 });
 
 router.post('/posts', async function (req, res) {
