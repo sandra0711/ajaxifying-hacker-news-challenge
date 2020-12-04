@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const post = require('../models/post');
 const Post = require('../models/post');
 const { Vote } = require('../models/vote');
 const router = express.Router();
@@ -27,7 +28,7 @@ router.post('/posts/:id/vote', async function (req, res) {
 });
 
 router.delete('/:id', async function (req, res, next) {
-  // Создайте здесь логику для удаления постов
+  post.deleteOne()
 });
 
 router.post('/posts', async function (req, res) {
