@@ -23,7 +23,7 @@ router.post('/posts/:id/vote', async function (req, res) {
   post.votes.push(vote);
   await post.save();
 
-  res.redirect('/posts');
+  res.json({ username: post.username , points: post.points(), timeSinceCreation: post.timeSinceCreation(), commentCount: post.commentCount, });
 });
 
 router.delete('/:id', async function (req, res, next) {
