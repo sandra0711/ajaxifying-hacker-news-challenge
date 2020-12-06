@@ -1,6 +1,6 @@
-let allForms = document.querySelectorAll('.inline');
-for (let i = 0; i < allForms.length; i += 1) {
-  allForms[i].addEventListener('submit', async (event) => {
+let allButtons = document.getElementsByName('submit_param');
+for (let i = 0; i < allButtons.length; i += 1) {
+  allButtons[i].addEventListener('click', async (event) => {
     event.preventDefault();
     const postThis = event.target.closest('article');
     let button = postThis.querySelector('button');
@@ -16,7 +16,6 @@ for (let i = 0; i < allForms.length; i += 1) {
       body: JSON.stringify({       //json
         postId: postId,
       }),
-   
     });
     const data = await responce.json();
     let vot = postThis.querySelector('.points');
@@ -37,6 +36,40 @@ for (let i = 0; i < deleteAll.length; i+=1) {
     });
     // const data = await responce.json();
     postThis.remove();
-     
   });
 }
+let postNew = document.querySelector('#posts');
+postNew.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  let newTitle = event.target.title.value;
+  const action = `/posts`;
+  const method = 'POST';
+  responce = await fetch(action, { // в responce прилетает ответ от сервера
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({       //json
+      title: newTitle, username: 'User', commentCount: Math.floor(Math.random() * 1000),
+    }),
+  });
+  const data = await responce.json();
+  console.log(data);
+  let postCont = document.querySelector('.post-container');
+  postCont.insertAdjacentHTML('afterBegin', `
+    <article id="${data.id}">
+    <form method="post" action='/posts/${data.id}/vote' class="inline">
+        <button type="submit" name="submit_param" value="submit_value" class="fa fa-sort-desc vote-button upvote-button"></button>
+    </form>
+    <h2><a href='/posts/${data.id}'>${data.title}</a></h2>
+    <p>
+        <span class='points'>${data.points}</span>
+        <span class='username'>${data.username}</span>
+        <span class='timestamp'>${data.timeSinceCreation}</span>
+        <span class='comment-count'>${data.commentCount}</span>
+        <a class="delete" href='/posts/${data.id}'></a>
+    </p>
+  </article>
+  `);
+  postNew.reset();
+});

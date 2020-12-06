@@ -35,7 +35,8 @@ router.delete('/:id', async function (req, res, next) {
 router.post('/posts', async function (req, res) {
   let newPost = new Post({ title: req.body.title, username: 'User', commentCount: Math.floor(Math.random() * 1000) });
   await newPost.save();
-  res.redirect('/posts');
+  res.json({ id: newPost._id, title: newPost.title, username: newPost.username, points: newPost.points(), timeSinceCreation: newPost.timeSinceCreation(), commentCount: newPost.commentCount } );
+ 
 });
 
 router.get('/posts/:id', async function (req, res) {
