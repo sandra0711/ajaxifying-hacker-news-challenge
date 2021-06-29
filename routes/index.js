@@ -30,19 +30,20 @@ router.post('/posts/:id/vote', async function (req, res) {
 router.delete('/:id', async function (req, res, next) {
   let post = await Post.findById(req.params.id).deleteOne();
   res.json(post);
+  
 });
 
-router.post('/posts', async function (req, res) {
+router.post('/posts/new', async function (req, res, next) {
   let newPost = new Post({ title: req.body.title, username: 'User', commentCount: Math.floor(Math.random() * 1000) });
   await newPost.save();
-  res.json({ id: newPost._id, title: newPost.title, username: newPost.username, points: newPost.points(), timeSinceCreation: newPost.timeSinceCreation(), commentCount: newPost.commentCount } );
+  res.json({ id: newPost._id, title: newPost.title, username: newPost.username, votes: [], points: 0, timeSinceCreation: newPost.timeSinceCreation(), commentCount: newPost.commentCount } );
  
 });
 
 router.get('/posts/:id', async function (req, res) {
   let post = await Post.findById(req.params.id);
 
-  res.render('post', { post });
+  res.redirect('/posts');
 });
 
 module.exports = router;
